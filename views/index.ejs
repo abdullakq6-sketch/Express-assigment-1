@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+  <title>Todo App</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>My Todo List</h1>
+
+    <form action="/add" method="POST" class="add-form">
+      <input type="text" name="task" placeholder="Add a new task..." required />
+      <button type="submit">Add</button>
+    </form>
+
+    <ul class="todo-list">
+      <% todos.forEach(function(todo) { %>
+        <li class="todo-item" data-id="<%= todo.id %>">
+          <label class="todo-label">
+            <input
+              type="checkbox"
+              class="status-checkbox"
+              data-id="<%= todo.id %>"
+              <%= todo.status ? "checked" : "" %>
+            />
+            <span class="todo-text <%= todo.status ? 'completed' : '' %>">
+              <%= todo.task %>
+            </span>
+          </label>
+
+          <form action="/delete/<%= todo.id %>" method="POST" class="delete-form">
+            <button type="submit" class="delete-btn">Delete</button>
+          </form>
+        </li>
+      <% }) %>
+
+      <% if (todos.length === 0) { %>
+        <li class="empty-state">No todos yet. Add one above!</li>
+      <% } %>
+    </ul>
+  </div>
+
+  <script src="/script.js"></script>
+</body>
+</html>
