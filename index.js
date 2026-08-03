@@ -71,6 +71,7 @@ app.patch("/api/todos/:id/status", (req, res) => {
 
   todo.status = status;
   writeTodos(todos);
+  
 
   res.json({ success: true, todo });
 });
