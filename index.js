@@ -31,6 +31,12 @@ app.get("/", (req, res) => {
   res.render("index", { todos });
 });
 
+// API: saare todos JSON format me dekhne ke liye (Postman testing ke liye)
+app.get("/api/todos", (req, res) => {
+  const todos = readTodos();
+  res.json(todos);
+});
+
 app.post("/add", (req, res) => {
   const { task } = req.body;
   if (task && task.trim() !== "") {
@@ -71,7 +77,6 @@ app.patch("/api/todos/:id/status", (req, res) => {
 
   todo.status = status;
   writeTodos(todos);
-  
 
   res.json({ success: true, todo });
 });
